@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>6. DAC - Digital Analog Converter - HEL - DIC1</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "6. DAC - Digital Analog Converter";
+        var mkdocs_page_input_path = "6_dac.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> HEL - DIC1
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">0. Herzlich Willkommen zu DIC1</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../1_digital/">1. Digitale Elektronik</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../2_c/">2. C-Programmierung</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../3_timer/">3. Timer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../4_switches/">4. Schalter / Pegelwandlung</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5_adc/">5. ADC - Analog Digital Converter</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">6. DAC - Digital Analog Converter</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#61-aufgabe-herausforderung">6.1 Aufgabe / Herausforderung</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#62-beispiel-rc-glied-megacard-v6">6.2 Beispiel RC-Glied MEGACARD v6</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#63-uberlegungen-zur-dimensionierung">6.3 Überlegungen zur Dimensionierung</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../7_uart/">7. Schnittstellen</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../A_ressources/">A. Ressourcen</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">HEL - DIC1</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">6. DAC - Digital Analog Converter</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="6-dac-digital-analog-converter">6. DAC - Digital Analog Converter</h1>
+<h2 id="61-aufgabe-herausforderung">6.1 Aufgabe / Herausforderung</h2>
+<p>Manche Anwendungen erfordern, dass aus einem digitalen Signal eine analoge Spannung erzeugt wird, wie etwa die Ausgabe eines Musiksignals auf einem Kopfhörer. Für diese Aufgabe gibt es dedizierte IC's. Die AVR-Mikrocontorller Serie hat keinen integrierten DAC. Hier kann ein einfaches RC-Glied (Tiefpass) verwendet werden, welches mit einem PWM Signal gespeist wird.</p>
+<h2 id="62-beispiel-rc-glied-megacard-v6">6.2 Beispiel RC-Glied MEGACARD v6</h2>
+<p>Auf der MEGACARD v6 befindet sich ein Tiefpass, welcher am Pin OC0/PB3 angeschlossen (Timer0):</p>
+<p><img alt="MEGACARD RC-Glied" src="../ressources/6/MC_dac.png" /></p>
+<p>Über eine Rückführung zu ADC7/PA7 kann das über ein PWM erzeugte Analog-Signal wieder eingelesen werden.</p>
+<h2 id="63-uberlegungen-zur-dimensionierung">6.3 Überlegungen zur Dimensionierung</h2>
+<p>Der Duty Cycle (D) kann zwischen 0% und 100% variiert werden. Ein D von 0% erzeugt eine Ausgangsspannung von 0VDC. Ein D von 100% erzeugt eine Ausgangsspannung von Vcc. Ein D dazwischen erzeugt ein Analogsignal von x% von Vcc.</p>
+<p><em>Beispiel Duty Cycle 50% / fPWM = 50kHz</em></p>
+<p><img alt="duty cycle 50%" src="../ressources/6/dac_dc50.png" /></p>
+<p>Niedrige PWM-Frequenzen erhöhen den Ripple am Ausgang des Filters deutlich. Für Wechselsignale ist zudem die Dämpfung des RC-Glied (Tiefpass) zu beachten, da höhere Frequenzen entsprechend abgeschwächt werden. Zu beachten ist weiters, dass es eine gewisse Zeit benötigt bis die korrekte Spannung am Kondensator anliegt.
+Zur Erzeugung des PWM-Signals bietet sich der Fast-PWM Mode an. Die LTspice Datei kann <a href="../ressources/6/DAC.asc">hier</a> heruntergeladen werden.</p>
+<p>Weiterführende Informationen finden Sie z.B. in diesem <a href="../ressources/6/90003250A.pdf">Microchip Technical Brief.</a></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../5_adc/" class="btn btn-neutral float-left" title="5. ADC - Analog Digital Converter"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../7_uart/" class="btn btn-neutral float-right" title="7. Schnittstellen">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../5_adc/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../7_uart/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

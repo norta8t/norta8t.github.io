@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>4. Schalter / Pegelwandlung - HEL - DIC1</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "4. Schalter / Pegelwandlung";
+        var mkdocs_page_input_path = "4_switches.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> HEL - DIC1
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">0. Herzlich Willkommen zu DIC1</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../1_digital/">1. Digitale Elektronik</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../2_c/">2. C-Programmierung</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../3_timer/">3. Timer</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">4. Schalter / Pegelwandlung</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#41-bjt-als-schalter">4.1 BJT als Schalter</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#411-allgemeines">4.1.1 Allgemeines</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#412-dimensionierung">4.1.2 Dimensionierung</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#413-arbeitspunktverschiebung-besonderheiten-unterschiedlicher-lasten">4.1.3 Arbeitspunktverschiebung Besonderheiten unterschiedlicher Lasten</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#415-darlington-transistorschalter">4.1.5 Darlington-Transistorschalter</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#42-fets">4.2 FETs</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#421-allgemeines">4.2.1 Allgemeines</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#422-anwendungsfalle-fet-als-schalter">4.2.2 Anwendungsfälle (FET als Schalter)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#423-auswahl-eines-n-kanal-mosfet-fur-logikpegel">4.2.3 Auswahl eines N-Kanal-MOSFET für Logikpegel</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#424-anschluss-an-einen-mikrocontroller">4.2.4 Anschluss an einen Mikrocontroller</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#43-cmos-inverter">4.3 CMOS-Inverter</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#43-pegelwandler">4.3 Pegelwandler</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#431-spannungsteiler">4.3.1 Spannungsteiler</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#432-diode">4.3.2 Diode</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#433-mosfet-n-kanal">4.3.3 MOSFET (N-Kanal)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#434-logic-level-converters">4.3.4 Logic Level Converters</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#435-optokoppler">4.3.5 Optokoppler</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../5_adc/">5. ADC - Analog Digital Converter</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../6_dac/">6. DAC - Digital Analog Converter</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../7_uart/">7. Schnittstellen</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../A_ressources/">A. Ressourcen</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">HEL - DIC1</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">4. Schalter / Pegelwandlung</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="4-schalter-pegelwandlung">4. Schalter / Pegelwandlung</h1>
+<p>Dieses Kapitel behandelt folgende Themen:</p>
+<ul>
+<li>BJT (Schalter)</li>
+<li>MOS-FETs (Schalter)</li>
+<li>Pegelwandler</li>
+<li>CMOS-Inverter</li>
+</ul>
+<p>Der maximale Strom eine IO-Pins des ATmega16 ist gemäß Datenblatt <strong>40 mA</strong>.</p>
+<p><img alt="ATmega16 Absolute Maximum Ratings" src="../ressources/4/max_ratings.png" /></p>
+<p>Um einen zuverlässigen Betrieb zu gewährleisten macht es in der Praxis Sinn, den maximalen Strom deutlich zu senken.
+Empfohlen werden max. <strong>20mA.</strong></p>
+<p>Werden nun Verbraucher mit deutlich höheren Strömen durch den Mikrocontroller geschaltet (z.B. Lampen, Relais oder Motoren), ist eine zusätzliche Schaltung notwendig.
+Im folgenden betrachten wir zwei Möglichkeiten - die Verwendung von bipolaren Transistoren sowie von Feldeffekt-Transistoren als Schalter.</p>
+<h2 id="41-bjt-als-schalter">4.1 BJT als Schalter</h2>
+<h3 id="411-allgemeines">4.1.1 Allgemeines</h3>
+<p>Ein Transistor eignet sich zum kontaktlosen Schalten kleiner und mittlerer Leisungen. Meist geschieht dies mit einem bipolaren Transistor vom Typ NPN (Emitterschaltung).</p>
+<p><img alt="BJT als Schalter" src="../ressources/4/npn_circuit.png" /></p>
+<p>Im folgenden wird ein typisches Ausgangskennlinienfeld eines npn-Transistors dargestellt:</p>
+<p><img alt="BJT Regions" src="../ressources/4/bjt_regions.png" /></p>
+<p><a href="https://www.electronics-tutorials.ws/de/transistoren/transistors-als-schalter.html">[Quelle]</a></p>
+<p>Mögliche Betriebsmodi eines Transistors sind:</p>
+<p><em>Sperrbereich (Cutoff Region)</em></p>
+<p>Betrieb als Schalter (OFF, geöffnet). Der Basisstrom IB ist 0, es fließt kein Kollektorstrom, die VCE entspricht VCC. Der Transistor arbeitet als offener Schalter.</p>
+<p><em>Aktiver Bereich (Linear/Active Region)</em></p>
+<p>Werden mit einem Transistor analoge Wechselsignale verstärkt, wird dieser im linearen Bereich der Ausgangskennlinie betrieben. Dabei ist der Kollektorstrom proportional zum Basisstrom, analoge Signale werden mit minimaler Verzerrung verstärkt.</p>
+<p><em>Sättigungsbereich (Saturation Region)</em></p>
+<p>Betrieb als Schalter (ON, geschlossen). Es liegt ein ausreichend großer Basistrom (IB) an, um den Transistor vollständig einzuschalten. Es fließt der maximale Kollektorstrom (Ic ~ Vcc/RL), die Kollektor-Emitter-Spannung ist minimal.</p>
+<p><em>Anmerkung:</em> Der Transistor ist genaugenommen nie ganz sperrend oder ganz leitend, vielmehr kann der Widerstand der CE-Strecke sehr hochomig oder sehr niederohmig sein.</p>
+<h3 id="412-dimensionierung">4.1.2 Dimensionierung</h3>
+<p><img alt="Dimensionierung" src="../ressources/4/dimensionierung.png" /></p>
+<p>Zu beachten ist weiters die maximal zulässige Kollektor-Emitter-Spannung sowie Ptot (total power) und ggfs. Schaltzeiten.</p>
+<p><em>Beispiel 4.1</em></p>
+<p>Ein Transistor, angesteuert von einem ATmega16 (5V) soll eine Last schalten, welche 200 mA Strom benötigt. Was ist der Wert des Basiswiderstand (VBE = 0.7V, BETA=200) im gesättigten Zustand?</p>
+<h3 id="413-arbeitspunktverschiebung-besonderheiten-unterschiedlicher-lasten">4.1.3 Arbeitspunktverschiebung Besonderheiten unterschiedlicher Lasten</h3>
+<p><em>Arbeitspunktverschiebung</em></p>
+<p><img alt="Arbeitspunktverschiebung" src="../ressources/4/arbeitspunktverschiebung.png" /></p>
+<p>Beim Schalten zwischen "EIN" und "AUS" durquert der Arbeitspunkt den verbotenen Bereich Ptot (maximale Leistung, die der Transistor sicher durch Wärme ableiten kann, ohne beschädigt zu werden - Überschreiten führt zu Überhitzung und möglicherweise zur Zerstörung des Transistors). Eine kurze Überschreitung ist unkritisch.</p>
+<p><em>Schalten ohmscher Last (z.B. Widerstand)</em></p>
+<p>Ohmsche Lasten sind unkritisch zu Schalten.</p>
+<p><img alt="Ohmsche Last" src="../ressources/4/ohmsche_last.png" /></p>
+<p><em>Schalten einer kapazitiven Last (z.B. Kondensator)</em></p>
+<p><img alt="Kapazitive Last" src="../ressources/4/kapazitive_last.png" /></p>
+<p>Eine kapazitive Last zieht beim Einschalten einen hohen Strom, der begrenzt werden muss.</p>
+<p><em>Schalten einer induktiven Last (z.B. Spule, Relais oder Motor)</em></p>
+<p>Beim Ausschalten einer induktiven Last wird eine Spannung induziert. Diese kann den Transistor zerstören.</p>
+<p><img alt="Induktive Last" src="../ressources/4/induktive_last.png" /></p>
+<p><a href="https://www.elektronik-kompendium.de/sites/slt/0208031.htm">[Quelle Grafiken]</a></p>
+<p>Eine Freilaufdiode schützt den Transistor, indem sie einen Pfad zu VCC bildet.</p>
+<p><img alt="Freilaufdiode" src="../ressources/4/freilaufdiode.png" /></p>
+<h3 id="415-darlington-transistorschalter">4.1.5 Darlington-Transistorschalter</h3>
+<p><em>Beispiel 4.2</em></p>
+<p>Eine 3A-Last soll mit einem <a href="../ressources/4/bd139.pdf">BD139</a> geschaltet werden. Die minimale Verstärkung beträgt 40. Was ist der IB? Kann IB von einem IO-Pin des ATmega16 geliefert werden?</p>
+<p>Wie verhält es sich mit einem <a href="../ressources/4/tip120.pdf">TIP120</a>? Was ist der RB?</p>
+<p>Darlington-Transistoren sind Kombinationen aus zwei Bipolartransistoren. Sie weisen eine sehr hohe Stromverstärkung, sind also ideal geeignet in Anwendungsfällen wo hohe Ströme geschaltet werden müssen und nur ein geringer Steuerstrom zur Verfügung steht.
+Hauptmerkmale sind die hohe Verstärkung (= gewünscht) und die relative hohe Sättigungsspannung (= unerwünscht).</p>
+<h2 id="42-fets">4.2 FETs</h2>
+<h3 id="421-allgemeines">4.2.1 Allgemeines</h3>
+<p><img alt="FET vs. BJT" src="../ressources/4/fet_bjt.png" /></p>
+<p>Im Vergleich zum bipolaren Transistor haben Feldeffekt-Transistoren den großen Vorteil, dass das Gate keinen Strom zieht (sehr hohe Eigangsimpendanz). Die Steuerung erfolgt mit Spannung, nicht mit Strom.</p>
+<p><img alt="Family tree" src="../ressources/4/family_tree.png" /></p>
+<p>Unterschieden werden:</p>
+<ul>
+<li>JFET = engl. <strong>J</strong>unction <strong>F</strong>ield <strong>E</strong>ffect Transistor, Übergangszonen FET, der steuerbare Kanal wird durch einen PN-Übergang wie in einer Diode gebildet</li>
+<li>MOSFET = engl. <strong>M</strong>etall <strong>O</strong>xide <strong>S</strong>emiconductor <strong>F</strong>ield <strong>E</strong>ffect <strong>T</strong>ransistor; Metalloxidschicht-FET, größte Teilgruppe der FETs mit isoliertem Gate</li>
+</ul>
+<p><img alt="FET Typen" src="../ressources/4/fet_typen.png" /></p>
+<p><a href="https://www.mikrocontroller.net/articles/FET">[Quelle Grafik]</a></p>
+<p><img alt="Kennlinien" src="../ressources/4/MOSFET_kennlinien.gif" /></p>
+<p><a href="https://www.electronics-tutorials.ws/de/transistoren/mosfet-als-schalter.html">[Quelle Grafik]</a></p>
+<h3 id="422-anwendungsfalle-fet-als-schalter">4.2.2 Anwendungsfälle (FET als Schalter)</h3>
+<ul>
+<li>Digitalelektronik</li>
+<li>Multiplexer</li>
+<li>Schaltwandler</li>
+<li>On/Off Batterie</li>
+<li>Veränderbare Filter</li>
+<li>Sample-and-hold Schaltung</li>
+<li>Digitale Potentiometer</li>
+<li>H-Brücke</li>
+</ul>
+<p>Zur Schaltung von DC-Elektromotoren (vorwärts/rückwärts) - kann diskret aufgebaut werden oder mit dedizierten ICs.</p>
+<p><img alt="H-Brücke" src="../ressources/4/h-bridge.png" /></p>
+<h3 id="423-auswahl-eines-n-kanal-mosfet-fur-logikpegel">4.2.3 Auswahl eines N-Kanal-MOSFET für Logikpegel</h3>
+<p>Folgende Parameter sind bei der initialen Auswahl eines N-Knal-MOSFET für Logikpegel zu berücksichtigen:</p>
+<p><em>Drain-Strom ID</em></p>
+<p>Der maximale Dauerstrom (oder ggfs. der maximale Pulsstrom) ist abhängig von der zu schaltenden Last</p>
+<p><em>Gate-Source-Schwellenspannung Vgs(th)(min) und Vgs(th)(max)</em></p>
+<p>Die Gate-Source Schwellspannung (Gate-Source Threshold Voltage) gibt an, ab welcher Spannung der MOSFET anfängt, minimal leitfähig zu werden. Technologisch bedingt ist diese Spannung einer starken Toleranz unterworfen (typische Spreizung von 1:2 zwischen Miminum und Maximum). Un den gewünschten Rds(on) zu erreichen, muss die Vgs ggfs. höher sein (siehe Datenblatt).</p>
+<p><img alt="Vgs" src="../ressources/4/vgs.png" /></p>
+<p><em>Drain-Source-Durchlasswiderstand - Rds(on)</em></p>
+<p><img alt="Rds" src="../ressources/4/ron.png" /></p>
+<p><em>Eingangskapazität - Ciss</em></p>
+<p>Die Eingangskapazität sollte möglichst gering sein, insbesondere bei hohen Schaltfrequenzen.</p>
+<p><em>Beispiel 4.3</em> </p>
+<p>Suchen Sie auf digikey.at einen MOSFET über die Parametersuche, welche von einem ATmega16 angesteuert werden kann und eine Last von 3A schalten kann.</p>
+<p>Was ist Rds(on) des MOSFET?
+Was ist die Gate-Source-Schwellenspannung (Bereich)?
+Was ist die Eingangskapazität Ciss?</p>
+<p><em>Beispiel 4.4</em></p>
+<p>LTSpice Simulation mit dem MOSFET <a href="../ressources/4/si7336adp.pdf">Si7336ADP</a></p>
+<p><em>Beispiel 4.5</em></p>
+<p>Simulieren Sie in LTSpice selbstständig folgende Aufgaben zum <a href="../ressources/4/BSP89.PDF">BSP89</a>:</p>
+<p>Als Basis für die Aufgabe dient diese Schaltung:</p>
+<p><img alt="Schaltung für Simulation" src="../ressources/4/mosfet_sim.png" /></p>
+<ul>
+<li>
+<p><em>Aufgabe 1</em>: DC sweep von Vgs von 0-20V. Bei welcher Schwellspannung beginnt der MOSFET zu schalten? Was ist der Gate-Strom?</p>
+</li>
+<li>
+<p><em>Aufgabe 2</em>: Wieviel ist der Verlauf der Leistung bei Aufgabe 1? (Hinweis: ALT + linke Maustaste)</p>
+</li>
+<li>
+<p><em>Aufgabe 3</em>: Bestimmen von Rds(on) im voll durchgeschalteten Betrieb. Wieviel Ohm sind es? Passt der Wert zum Datenblatt? (Hinweis: Rds(on)=Vds/Id</p>
+</li>
+<li>
+<p><em>Aufgabe 4</em>: Zeichnen des Kennlinienfelds des MOSFET (Hinweis: Sweep Vds von 0-240V, Vgs von 0-20V in 4V Schritten). Warum wurden diese Werte gewählt? Wo befindet sich der lineare Bereich? Wo der Sättigungsbereich? Wo der Sperrbereich?</p>
+</li>
+<li>
+<p><em>Aufgabe 5</em>: MOSFET Steuerspannung (Vgs) gepulst (100Hz). Wieviel Strom zieht das Gate aufgrund der^ Eingangskapazität Ciss beim Schalten? Kann ein ATmega16 diesen Strom liefern?</p>
+</li>
+<li>
+<p>Aufgabe 6: Linear-Betrieb (Verstärker) - tbd</p>
+</li>
+</ul>
+<h3 id="424-anschluss-an-einen-mikrocontroller">4.2.4 Anschluss an einen Mikrocontroller</h3>
+<p>Sowohl JFETs als auch MOSFETs haben eine Eingangskapazität (Gate-Kapazität). Diese ist insbesondere beim MOSFET größer und resultiert aus der Oxidschicht zwischen dem Gate und dem Kanal. Die hier auftretenden Einschaltströme können den IO-Pin eines Mikrocontrollers überlasten - dies kann mit der folgenden Schaltung vermieden werden:</p>
+<p><img alt="MOSFET an IO-Pin" src="../ressources/4/mc_mosfet.png" /></p>
+<p>Der Pull-down Widerstand sorgt dabei für einen definierten Pegel während des Starts und Resets des Mikrocontrollers.</p>
+<p>Anzumerken ist, dass der MOSFET für Logic Level (LL) ausgelegt ist, der schon bei einer Gatespannung von etwa 4.5V voll durchgesteuert sind. Die meisten FET werden mit ca. 10-15V angesteuert, wofür wiederum eine eigene <a href="https://www.mikrocontroller.net/articles/Treiber">Treiberschaltung</a> notwendig ist.</p>
+<h2 id="43-cmos-inverter">4.3 CMOS-Inverter</h2>
+<p>Wird noch ergänzt.</p>
+<h2 id="43-pegelwandler">4.3 Pegelwandler</h2>
+<p>"<em>Als Pegelumsetzer oder Pegelwandler (englisch level shifter) bezeichnet man in der Elektronik eine diskrete oder integrierte elektronische Schaltung, welche die Signalpegel – in der Regel Spannungssignale – einer Informationsquelle an die Eingangssignalpegel einer Informationssenke anpasst. Pegelumsetzer können sowohl in der Analogtechnik als auch in der Digitaltechnik angewendet werden.</em>" (Wikipedia)</p>
+<p>Es gibt verschiedenen Möglichkeiten, einen Pegelwandler umzusetzen. Einiger dieser Methoden sind im folgenden beschrieben:</p>
+<h3 id="431-spannungsteiler">4.3.1 Spannungsteiler</h3>
+<p>Eine einfache und günstige Methode ist ein simpler Spannungsteiler.</p>
+<p><img alt="Spannungsteiler" src="../ressources/4/spannungsteiler.png" /></p>
+<p>Dabei berechnet sich die Spannung aus:</p>
+<p><img alt="Formel Spannungsteiler" src="../ressources/4/spannungsteiler_formel.png" /></p>
+<p>Bei Verwendung von Widerständen aus der E24-Reihe kann z.B. aus 5V mit einem R1 = 1.8kΩ und R2 = 3.3kΩ eine Ausgangsspannung von 3.3V erzeugt werden.</p>
+<p><em>Vorteile</em></p>
+<ul>
+<li>Einfach (geeignet für Prototyping)</li>
+<li>Günstig</li>
+</ul>
+<p><em>Nachteile</em></p>
+<ul>
+<li>Unidirektional</li>
+<li>Nur von höherer zu niedriger Spannung</li>
+<li>Ungeeignet für hohe Frequenzen</li>
+</ul>
+<h3 id="432-diode">4.3.2 Diode</h3>
+<p>Ähnlich einfach ist die Verwendung einer Diode in Verbindung mit einem Widerstand (kann z.B. bei einem Mikrocontroller der interne Pull-up Widerstand am Eingang sein).</p>
+<p><img alt="Diode" src="../ressources/4/diode-1.png" /></p>
+<p>Liegen an TX 5V an, sperrt die Diode und an RX liegt die Spannung über den Pull-up Widerstand an (3V). Ist TX bei 0V, leitet die Diode und an RX liegt 0V + If an (If = Durchlassspannung).</p>
+<p><img alt="Beispiel Diode" src="../ressources/4/diode-2.png" /></p>
+<p><a href="https://electronics.stackexchange.com/questions/329810/how-can-a-switching-diode-act-as-a-level-shifter">[Quelle]</a></p>
+<p><em>Vorteile</em></p>
+<ul>
+<li>Einfach (geeignet für Prototyping)</li>
+<li>Günstig</li>
+</ul>
+<p><em>Nachteile</em></p>
+<ul>
+<li>Unidirektional</li>
+<li>Nur von höherer zu niedriger Spannung</li>
+<li>Ungeeignet für hohe Frequenzen</li>
+</ul>
+<h3 id="433-mosfet-n-kanal">4.3.3 MOSFET (N-Kanal)</h3>
+<p>Mit einem MOSFET ist eine bidirektionale Anpassung des Spannungspegel möglich.</p>
+<p><img alt="Beispiel MOSFET" src="../ressources/4/mosfet.png" /></p>
+<p>Die genaue Funktion ist <a href="../ressources/4/Level_Shifting_methods.pdf">hier</a> erklärt.</p>
+<p><em>Vorteile</em></p>
+<ul>
+<li>Bidirektional</li>
+<li>Zuverlässig und schnell</li>
+</ul>
+<p><em>Nachteile</em></p>
+<ul>
+<li>Komplexer</li>
+<li>Setzt eine geeignete Auswahl des MOSFET voraus</li>
+</ul>
+<h3 id="434-logic-level-converters">4.3.4 Logic Level Converters</h3>
+<p>Es gibt eine Vielzahl an dedizierten Schaltkreisen genau für diesen Zweck.</p>
+<p>Beispiel <a href="../ressources/4/txb0108.pdf">TXB0108</a> (8-Bit, bidirektional)</p>
+<p><em>Vorteile</em></p>
+<ul>
+<li>Bidirektional</li>
+<li>Zuverlässig und schnell</li>
+</ul>
+<p><em>Nachteile</em></p>
+<ul>
+<li>Teurer</li>
+</ul>
+<h3 id="435-optokoppler">4.3.5 Optokoppler</h3>
+<p>Optokoppler isolieren zwei Schaltkreise elektrisch voneinander, indem er elektrische Signale mittels Licht überträgt. Dies geschieht z.B. durch Verwendung einer LED und eines lichtempfindlichen Bauteils (z.B. Fotodiode).</p>
+<p><em>Vorteile</em></p>
+<ul>
+<li>Elektrische Isolation</li>
+<li>Zuverlässig</li>
+</ul>
+<p><em>Nachteile</em></p>
+<ul>
+<li>Langsamer</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../3_timer/" class="btn btn-neutral float-left" title="3. Timer"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../5_adc/" class="btn btn-neutral float-right" title="5. ADC - Analog Digital Converter">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../3_timer/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../5_adc/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
